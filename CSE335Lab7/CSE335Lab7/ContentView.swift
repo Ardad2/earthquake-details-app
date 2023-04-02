@@ -22,8 +22,16 @@ struct earthquake : Decodable
     let lng:Double
     let src:String
     let eqid: String
-    let magnitude: String
+    let magnitude: Double
     let lat:Double
+}
+
+struct displayEarthquake : Identifiable
+{
+    var id = UUID()
+    var datetime:String
+    var magnitude:String
+    
 }
 
 struct Location: Identifiable {
@@ -33,6 +41,8 @@ struct Location: Identifiable {
 }
 
 struct ContentView: View {
+    
+    @State var displayEarthquakes:[displayEarthquake]
     
     private static let defaultLocation = CLLocationCoordinate2D(
         latitude: 33.4255,
@@ -58,8 +68,8 @@ struct ContentView: View {
 
     
     @State var address:String
-    @State var lon:String
-    @State var lat:String
+    @State var lon:Double
+    @State var lat:Double
     
     var body: some View {
         NavigationView {
@@ -77,21 +87,61 @@ struct ContentView: View {
                 
                 
                 Button{
-                    getJsonData(longitude: (lon as NSString).doubleValue, latitude: (lat as NSString).doubleValue)
+                    displayEarthquakes.removeAll()
+                    getJsonData(longitude: lon, latitude: lat)
                 }label: {
                     Text("Get earthquake info")
                 }
+                
+                
+                List {
+                    ForEach(displayEarthquakes) {
+                        datum in VStack(){
+                            HStack {
+                                Text(datum.datetime)
+                                Text(datum.magnitude)
+                            }
+                        }
+                    }
+                }
+                
             }
         }
     }
     
     func getJsonData(longitude: Double, latitude: Double) {
-        let north = longitude + 10
-        let south = longitude - 10
-        let east = (-1 * latitude) - 10
-        let west = (-1 * latitude) + 10
+        
+        var long = (Double(round(100 * longitude) / 100))
+        if (long < 0)
+        {
+            long = long * (-1.0)
+        }
+        
+        var lati = (Double(round(100 * latitude) / 100))
+        
+        if (lati < 0)
+        {
+            lati = lati * (-1.0)
+        }
+        
+        
+        var north = lati + 10.0
+        var south = lati - 10.0
+        var east = long - 10.0
+        var west = long + 10.0
+        
+        north = Double(round(100 * north) / 100)
+        south = Double(round(100 * south) / 100)
+        east = Double(round(100 * east) / 100)
+        west = Double(round(100 * west) / 100)
+        
+        //lon = Double(round(100 * lon) / 100)
+        //lat = Double(round(100 * lat) / 100)
+        
+        
         
         let urlAsString = "http://api.geonames.org/earthquakesJSON?north=" + String(north) + "&south=" + String(south) + "&east=" + String(east) + "&west=" + String(west) + "&username=arjdad"
+        print(urlAsString)
         
         let url = URL(string: urlAsString)!
         let urlSession = URLSession.shared
@@ -102,10 +152,27 @@ struct ContentView: View {
             }
             var err: NSError?
             
+            var count = 0;
+            
             do {
                 let decodedData = try JSONDecoder().decode(earthquakeData.self, from: data!)
-            
-                print(decodedData.earthquakes[0].datetime)
+                
+                for earth in decodedData.earthquakes {
+                    let currDatetime = earth.datetime
+                    let currMagnitude = earth.magnitude
+                    displayEarthquakes.append(displayEarthquake(datetime: currDatetime, magnitude: currMagnitude))
+
+                }
+                
+                //let currDatetime = decodedData.earthquakes[count].datetime;
+                //let currMagnitude = String(decodedData.earthquakes[count].magnitude)
+                
+
+                
+                
+                //displayEarthquakes = decodedData.earthquakes;
+                
+                //print(decodedData.earthquakes[0].src)
                 
                // location = decodedData.earthQuakeData[0].placeName
                 //longitute = String(decodedData.postalcodes[0].lng)
@@ -132,6 +199,12 @@ struct ContentView: View {
                 let placemark = placemarks![0]
                 let location = placemark.location
                 let coords = location!.coordinate
+                lon = coords.longitude
+                
+                
+                lat = coords.latitude
+                
+                
                 print(coords.latitude)
                 print(coords.longitude)
                 
