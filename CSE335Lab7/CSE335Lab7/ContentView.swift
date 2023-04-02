@@ -17,28 +17,32 @@ struct ContentView: View {
         longitude: -111.9400
     )
     
-    @State var location =  CLLocationCoordinate2D(
+   /* @State var location =  CLLocationCoordinate2D(
         latitude: 33.4255,
         longitude: -111.9400
-    )
+    )*/
+    
+    @State var location: CLLocationCoordinate2D?
+
     
     @State var address:String
     
     var body: some View {
         NavigationView {
             VStack {
-                Text("Current longitude: \(location.longitude)")
-                Text("Current latitude: \(location.latitude) ")
+                //Text("Current longitude: \(location!.longitude)")
+                //Text("Current latitude: \(location!.latitude) ")
                 
                 TextField("Enter address", text: $address)
                 Button{
-                    
+
                 }label: {
                     Text("Get coordinates")
                 }
             }
         }
     }
+    
     
     /*
     
