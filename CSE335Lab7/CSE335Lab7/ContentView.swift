@@ -17,9 +17,14 @@ struct ContentView: View {
         longitude: -111.9400
     )
     
+    @State var location =  CLLocationCoordinate2D(
+        latitude: 33.4255,
+        longitude: -111.9400
+    )
+    
     var body: some View {
         NavigationView {
-            Text("test")
+            Text("\(location.longitude)")
         }
     }
     
