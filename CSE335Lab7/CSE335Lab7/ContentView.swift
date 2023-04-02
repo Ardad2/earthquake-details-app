@@ -24,7 +24,10 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            Text("\(location.longitude)")
+            VStack {
+                Text("Current longitude: \(location.longitude)")
+                Text("Current latitude: \(location.latitude) ")
+            }
         }
     }
     
