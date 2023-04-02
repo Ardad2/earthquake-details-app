@@ -85,6 +85,15 @@ struct ContentView: View {
         }
     }
     
+    func getJsonData(longitude: Double, latitude: Double) {
+        let north = longitude + 10
+        let south = longitude - 10
+        let east = (-1 * latitude) - 10
+        let west = (-1 * latitude) + 10
+        
+        let urlAsString = "http://api.geonames.org/earthquakesJSON?north=" + north + "&south=" + south + "&east=" + east + "&west=" + west + "&username=arjdad"
+    }
+    
     func forwardGeocoding(addressStr: String)
     {
         let geoCoder = CLGeocoder();
