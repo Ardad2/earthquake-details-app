@@ -10,6 +10,12 @@ import MapKit
 import SwiftUI
 //import CoreData
 
+struct Location: Identifiable {
+    let id = UUID()
+    var name: String
+    var coordinate: CLLocationCoordinate2D
+}
+
 struct ContentView: View {
     
     private static let defaultLocation = CLLocationCoordinate2D(
@@ -22,25 +28,65 @@ struct ContentView: View {
         longitude: -111.9400
     )*/
     
+    @State private var region = MKCoordinateRegion(
+        center: defaultLocation,
+        span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
+    )
+
+    @State private var markers = [
+        Location(name: "Tempe", coordinate: defaultLocation)
+    ]
+    
+    
     @State var location: CLLocationCoordinate2D?
 
     
     @State var address:String
+    @State var lon:String
+    @State var lat:String
     
     var body: some View {
         NavigationView {
             VStack {
-                //Text("Current longitude: \(location!.longitude)")
-                //Text("Current latitude: \(location!.latitude) ")
+                Text("Current longitude: \(region.center.longitude)")
+                Text("Current latitude: \(region.center.latitude) ")
                 
                 TextField("Enter address", text: $address)
                 Button{
-
+                    forwardGeocoding(addressStr: address)
                 }label: {
                     Text("Get coordinates")
                 }
             }
         }
+    }
+    
+    func forwardGeocoding(addressStr: String)
+    {
+        let geoCoder = CLGeocoder();
+        let addressString = addressStr
+        CLGeocoder().geocodeAddressString(addressString, completionHandler:
+                                            {(placemarks, error) in
+            
+            if error != nil {
+                print("Geocode failed: \(error!.localizedDescription)")
+            } else if placemarks!.count > 0 {
+                let placemark = placemarks![0]
+                let location = placemark.location
+                let coords = location!.coordinate
+                print(coords.latitude)
+                print(coords.longitude)
+                
+                DispatchQueue.main.async
+                    {
+                        region.center = coords
+                        markers[0].name = placemark.locality!
+                        markers[0].coordinate = coords
+                    }
+            }
+        })
+        
+        
     }
     
     

@@ -13,7 +13,7 @@ struct CSE335Lab7App: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(address: "Tempe")
+            ContentView(address: "Tempe", lon: "", lat: "")
         }
     }
 }
