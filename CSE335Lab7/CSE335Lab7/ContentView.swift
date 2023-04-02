@@ -12,7 +12,18 @@ import SwiftUI
 
 struct earthquakeData : Decodable
 {
-    
+    let earthquakes:[earthquake]
+}
+
+struct earthquake : Decodable
+{
+    let datetime:String
+    let depth:Double
+    let lng:Double
+    let src:String
+    let eqid: String
+    let magnitude: String
+    let lat:Double
 }
 
 struct Location: Identifiable {
