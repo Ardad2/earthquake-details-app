@@ -22,11 +22,20 @@ struct ContentView: View {
         longitude: -111.9400
     )
     
+    @State var address:String
+    
     var body: some View {
         NavigationView {
             VStack {
                 Text("Current longitude: \(location.longitude)")
                 Text("Current latitude: \(location.latitude) ")
+                
+                TextField("Enter address", text: $address)
+                Button{
+                    
+                }label: {
+                    Text("Get coordinates")
+                }
             }
         }
     }
