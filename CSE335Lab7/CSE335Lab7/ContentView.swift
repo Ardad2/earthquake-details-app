@@ -51,11 +51,19 @@ struct ContentView: View {
                 Text("Current longitude: \(region.center.longitude)")
                 Text("Current latitude: \(region.center.latitude) ")
                 
+                
                 TextField("Enter address", text: $address)
                 Button{
                     forwardGeocoding(addressStr: address)
                 }label: {
                     Text("Get coordinates")
+                }
+                
+                
+                Button{
+                    
+                }label: {
+                    Text("Get earthquake info")
                 }
             }
         }
