@@ -77,7 +77,7 @@ struct ContentView: View {
                 
                 
                 Button{
-                    
+                    getJsonData(longitude: (lon as NSString).doubleValue, latitude: (lat as NSString).doubleValue)
                 }label: {
                     Text("Get earthquake info")
                 }
@@ -91,8 +91,31 @@ struct ContentView: View {
         let east = (-1 * latitude) - 10
         let west = (-1 * latitude) + 10
         
-        let urlAsString = "http://api.geonames.org/earthquakesJSON?north=" + north + "&south=" + south + "&east=" + east + "&west=" + west + "&username=arjdad"
+        let urlAsString = "http://api.geonames.org/earthquakesJSON?north=" + String(north) + "&south=" + String(south) + "&east=" + String(east) + "&west=" + String(west) + "&username=arjdad"
+        
+        let url = URL(string: urlAsString)!
+        let urlSession = URLSession.shared
+
+        let jsonQuery = urlSession.dataTask(with: url, completionHandler: { data, response, error -> Void in
+            if (error != nil) {
+                print(error!.localizedDescription)
+            }
+            var err: NSError?
+            
+            do {
+                let decodedData = try JSONDecoder().decode(earthquakeData.self, from: data!)
+            
+               // location = decodedData.earthQuakeData[0].placeName
+                //longitute = String(decodedData.postalcodes[0].lng)
+                //latitude = String(decodedData.postalcodes[0].lat)
+                
+            } catch {
+                print("error: \(error)")
+            }
+        })
+        jsonQuery.resume()
     }
+    
     
     func forwardGeocoding(addressStr: String)
     {

@@ -48,6 +48,7 @@
 		8260EDC329D9DEE60059AA09 /* CSE335Lab7UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CSE335Lab7UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8260EDC729D9DEE60059AA09 /* CSE335Lab7UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSE335Lab7UITests.swift; sourceTree = "<group>"; };
 		8260EDC929D9DEE60059AA09 /* CSE335Lab7UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSE335Lab7UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8260EDD629DA31480059AA09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +99,7 @@
 		8260EDA629D9DEE50059AA09 /* CSE335Lab7 */ = {
 			isa = PBXGroup;
 			children = (
+				8260EDD629DA31480059AA09 /* Info.plist */,
 				8260EDA729D9DEE50059AA09 /* CSE335Lab7App.swift */,
 				8260EDA929D9DEE50059AA09 /* ContentView.swift */,
 				8260EDAB29D9DEE60059AA09 /* Assets.xcassets */,
@@ -427,6 +429,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CSE335Lab7/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CSE335Lab7/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -455,6 +458,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CSE335Lab7/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CSE335Lab7/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
