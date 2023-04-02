@@ -10,6 +10,11 @@ import MapKit
 import SwiftUI
 //import CoreData
 
+struct earthquakeData : Decodable
+{
+    
+}
+
 struct Location: Identifiable {
     let id = UUID()
     var name: String
