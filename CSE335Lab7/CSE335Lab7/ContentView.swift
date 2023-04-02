@@ -105,6 +105,8 @@ struct ContentView: View {
             do {
                 let decodedData = try JSONDecoder().decode(earthquakeData.self, from: data!)
             
+                print(decodedData.earthquakes[0].datetime)
+                
                // location = decodedData.earthQuakeData[0].placeName
                 //longitute = String(decodedData.postalcodes[0].lng)
                 //latitude = String(decodedData.postalcodes[0].lat)
