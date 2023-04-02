@@ -49,11 +49,6 @@ struct ContentView: View {
         longitude: -111.9400
     )
     
-   /* @State var location =  CLLocationCoordinate2D(
-        latitude: 33.4255,
-        longitude: -111.9400
-    )*/
-    
     @State private var region = MKCoordinateRegion(
         center: defaultLocation,
         span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2)
@@ -135,9 +130,6 @@ struct ContentView: View {
         east = Double(round(100 * east) / 100)
         west = Double(round(100 * west) / 100)
         
-        //lon = Double(round(100 * lon) / 100)
-        //lat = Double(round(100 * lat) / 100)
-        
         
         
         let urlAsString = "http://api.geonames.org/earthquakesJSON?north=" + String(north) + "&south=" + String(south) + "&east=" + String(east) + "&west=" + String(west) + "&username=arjdad"
@@ -160,7 +152,7 @@ struct ContentView: View {
                 for earth in decodedData.earthquakes {
                     let currDatetime = earth.datetime
                     let currMagnitude = earth.magnitude
-                    displayEarthquakes.append(displayEarthquake(datetime: currDatetime, magnitude: currMagnitude))
+                    displayEarthquakes.append(displayEarthquake(datetime: currDatetime, magnitude: String(currMagnitude)))
 
                 }
                 
@@ -220,32 +212,8 @@ struct ContentView: View {
         
     }
     
-    
-    /*
-    
-    func getLocation(from address: String, completion: @escaping (_ location:CLLocationCoordinate2D?) -> Void) {
-        let geocoder = CLGeocoder();
-        
-        geocoder.geocodeAddressString(address) { (placemarks, error) in guard let placemarks = placemarks,
-            
-            let location = placemarks.first?.location?.coordinate
-            else {
-                completion(nil);
-                return
-            }
 
-                    region.center = location
-            markers[0] = Location(name: cityName, coordinate: location);
-
-
-        }
-    } */
     
     
-    /*
-    struct ContentView_Previews: PreviewProvider {
-        static var previews: some View {
-            ContentView()    }
-    }
-    */
+
 }
